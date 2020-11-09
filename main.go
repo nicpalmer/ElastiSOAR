@@ -9,11 +9,11 @@ import (
 )
 
 type Alert struct {
-	ID       string `json:"id" binding:"required"`
-	Hostname string `json:"hostname" binding:"required"`
-	Username string `json:"username" binding:"required"`
-	RuleName 	 string `json:"rulename" binding:"required"`
-	Inventory 	 string `json:"inventory" binding:"required"`
+	ID       	string `json:"id" binding:"required"`
+	Hostname 	string `json:"hostname" binding:"required"`
+	Username 	string `json:"username" binding:"required"`
+	RuleName 	string `json:"rulename" binding:"required"`
+	Inventory 	string `json:"inventory" binding:"required"`
 }
 
 
