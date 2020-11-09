@@ -11,6 +11,7 @@ import (
 type Alert struct {
 	ID       string `json:"id" binding:"required"`
 	Hostname string `json:"hostname" binding:"required"`
+	Username string `json:"username" binding:"required"`
 	RuleName 	 string `json:"rulename" binding:"required"`
 	Inventory 	 string `json:"inventory" binding:"required"`
 }
@@ -46,6 +47,7 @@ func ansible(json Alert)  {
 			"example": "example",
 			"alertName": json.RuleName,
 			"hostname": json.Hostname,
+			"username": json.Username,
 		},
 	}
 	playbook := &ansibler.AnsiblePlaybookCmd{
