@@ -45,7 +45,7 @@ func ansible(json Alert)  {
 		Inventory: json.Inventory+",",
 		ExtraVars: map[string]interface{}{
 			"example": "example",
-			"alertName": json.RuleName,
+			"ruleName": json.RuleName,
 			"hostname": json.Hostname,
 			"username": json.Username,
 		},
