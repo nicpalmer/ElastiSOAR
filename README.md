@@ -18,15 +18,15 @@ In Kibana, go to the Detections tab within Elastic Security
 - Click on 'Edit Rule settings'
 - In the actions tab, confirm the frequency you want the rule to trigger. 
 - Under action type, select webook. 
-- If you don't have a connector defined already then please set this up (the default port for ElastiSOAR is 8080)
+  - If you don't have a connector defined already then please set this up (the default port for ElastiSOAR is 8080)
 - Create a document body that contains the following values as a minimum. 
 
 ### Watcher
 - Create a watch that looks for your specific criteria
 - Under the action part of the watch make sure that the payload contains at a minimum: 
-- Hostname
-- Username
-- Alert Name 
+  - Hostname
+  - Username
+  - Alert Name 
 
 > for the time being - you will need to add hostname and username, even if those values are blank. 
 
