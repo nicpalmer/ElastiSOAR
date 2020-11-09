@@ -18,7 +18,7 @@ type Alert struct {
 
 func main() {
 	router := gin.Default()
-	router.POST("/somePost", posting)
+	router.POST("/actions", posting)
 	router.Run(":8080")
 
 }
