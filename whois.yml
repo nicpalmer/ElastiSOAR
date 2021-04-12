@@ -1,0 +1,11 @@
+---
+- hosts: all
+  tasks:
+    - name: Prove it
+      command: "whois {{ domainname }}"
+      register: whois
+
+    - debug:
+        msg: "{{ whois.stdout }}"
+
+

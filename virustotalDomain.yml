@@ -1,0 +1,25 @@
+---
+- hosts: all
+  tasks:
+    - name: Get Virus Total Results for Domain
+      uri:
+        url: "https://www.virustotal.com/api/v3/domains/{{destinationAddress}}"
+        method: GET
+        headers:
+          x-apikey: "{{ VT_API_KEY }}"
+        return_content: yes
+      register: vtDomainLookup
+
+    - debug:
+        msg: "{{ vtDomainLookup.json }}"
+
+    - name: Put results into Elasticsearch
+      uri:
+        url: "http://localhost:9200/threat-intel/_doc"
+        method: POST
+        user: elastic
+        password: "lZz6VBeumI02UPkqr11L"
+        body: "{{ vtDomainLookup.json }}"
+        body_format: json
+        status_code: 201
+

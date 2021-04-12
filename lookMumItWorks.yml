@@ -1,7 +1,0 @@
----
-- hosts: all
-  tasks:
-    - name: Prove it
-      debug:
-        msg: "I have recieved an alert titled {{ ruleName }} I will run this on host {{ hostname }}"
-
