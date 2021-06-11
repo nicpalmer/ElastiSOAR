@@ -13,13 +13,13 @@
     - debug:
         msg: "{{ vtDomainLookup.json }}"
 
-    - name: Put results into Elasticsearch
-      uri:
-        url: "http://localhost:9200/threat-intel/_doc"
-        method: POST
-        user: elastic
-        password: "lZz6VBeumI02UPkqr11L"
-        body: "{{ vtDomainLookup.json }}"
-        body_format: json
-        status_code: 201
+#    - name: Put results into Elasticsearch
+#      uri:
+#        url: "http://localhost:9200/threat-intel/_doc"
+#        method: POST
+#        user: elastic
+#        password: "lZz6VBeumI02UPkqr11L"
+#        body: "{{ vtDomainLookup.json }}"
+#        body_format: json
+#        status_code: 201
 

@@ -4,6 +4,9 @@ import (
 	"fmt"
 	ansibler "github.com/apenella/go-ansible"
 	"github.com/gin-gonic/gin"
+	"gopkg.in/yaml.v2"
+	"io/ioutil"
+	"log"
 	"net/http"
 )
 
@@ -48,6 +51,15 @@ type Destination struct {
 	IP				string			`json:"ip" `
 	Address 		string  		`json:"address" `
 }
+
+type ApiKeys struct {
+	  Keys 		struct{
+	  	Vt_api_keys	string `yaml:"vt_api_key"`
+	  	Shodan		string `yaml:"shodan_key"`
+	}
+}
+
+
 func main() {
 	router := gin.Default()
 	router.POST("/actions", posting)
@@ -58,10 +70,24 @@ func posting(c *gin.Context){
 	if c.BindJSON(&json) == nil {
 		fmt.Printf("%+v\n", json)
 	}
+	fmt.Println(json)
 	ansible(json)
 	c.JSON(http.StatusOK, gin.H{"status": "success"})
 }
+
+func getKeys() ApiKeys {
+	apiKeys := ApiKeys{}
+	var data, _ = ioutil.ReadFile("apikeys.yml")
+	err := yaml.Unmarshal([]byte(data), &apiKeys)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+	}
+	//fmt.Printf("--- keys:\n%v\n\n", apiKeys)
+	return apiKeys
+}
 func ansible(json Alert)  {
+	var apiKeys ApiKeys
+	apiKeys = getKeys()
 	playbookname := fmt.Sprintf("%s.yml", json.RuleName)
 	ansiblePlaybookConnectionOptions := &ansibler.AnsiblePlaybookConnectionOptions{
 		Connection: "local",
@@ -76,7 +102,8 @@ func ansible(json Alert)  {
 			"sourceAddress": json.Source.Address,
 			"destinationIP": json.Destination.IP,
 			"destinationAddress": json.Destination.Address,
-			"VT_API_KEY": "<YOUR API KEY>",
+			"VT_API_KEY": apiKeys.Keys.Vt_api_keys,
+			"Shodan_KEY": apiKeys.Keys.Shodan,
 		},
 	}
 	playbook := &ansibler.AnsiblePlaybookCmd{
