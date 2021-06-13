@@ -21,10 +21,23 @@ A lookup function will take the value of `rulename` in your Alert's Request, and
 In Kibana, go to the Detections tab within Elastic Security
 - Select the rule you wish to use ElastiSOAR with
 - Click on 'Edit Rule settings'
-- In the actions tab, confirm the frequency you want the rule to trigger. 
-- Under action type, select webhook. 
+  ![threat-intel-rule-match-screeshot](./screenshots/threat-intel-match-rule.png)
+  
+- In the actions tab, confirm the frequency you want the rule to trigger.
+  ![Action Frequency - Set to on each execution](./screenshots/action-frequency.png)
+  
+- Under action type, select webhook.
+  
+  ![Select Webhook](./screenshots/select-webhook.png)
   - If you don't have a connector defined already then please set this up (the default port for ElastiSOAR is 8080)
-- Create a document body that contains the following values as a minimum. 
+
+- Create a document body that contains the following values as a minimum.
+  - id
+  - rule name
+  - inventory (Set this to something like 'localhost')
+
+  ![Payload Body](./screenshots/payload-body.png)  
+  
 
 ### Watcher
 - Create a watch that looks for your specific criteria
@@ -74,7 +87,6 @@ The playbook is pretty simple:
         msg: "{{ vtDomainLookup.json }}"
 ```
 The playbook looks for the `VT_API_KEY` variable, which you can set in the `apikeys.yml` file. ElastiSOAR also supports Shodan API keys too. 
-
 
 
 ## To do 

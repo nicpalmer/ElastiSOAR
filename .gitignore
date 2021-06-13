@@ -15,4 +15,4 @@
 # vendor/
 
 #Idea files
-.idea/
+.idea*
